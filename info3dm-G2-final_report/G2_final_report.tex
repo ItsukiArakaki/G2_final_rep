@@ -6,7 +6,7 @@
 
 \title{知能情報実験III（データマイニング班）\\毒のある蛇かそうでないかを画像判別}
 \author{215732C 佐久本元気\\215736F 西野大河\\215742A 米須悠\\215746C 新垣樹\\}
-\date{提出日：2023年6月15日}
+\date{提出日：2023年8月3日}
 \begin{document}
 \maketitle
 \tableofcontents
@@ -18,7 +18,7 @@
 
 \section{実験方法}
 \subsection{実験目的・目標}
-画像に写っている蛇の毒の有無を予測し、正しいか確認することが目的である。また、予測の正答率をできる限り高めることも目的の一つである。具体的な数値としては、正答率80\%を目標とする。
+画像に写っている蛇の毒の有無を予測し、正しいか確認することが目的である。また、予測の正答率をできる限り高めることも目的の一つである。具体的な数値としては、正解率80\%を目標とする。
 
 \subsection{データセット構築}
 本実験では4種類のデータセットを構築して実験を行った。\par
@@ -76,7 +76,6 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
 訓練用データセット
 \begin{itemize}
 \item dataset3…実験3で訓練用データセットとして用いたdataset2に各地域ごとの蛇の画像をさらに追加したデータセット。追加した枚数の内訳は以下の通りである。
-\clearpage
 
 \end{itemize}\par
 \begin{table}[htb]
@@ -103,6 +102,7 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
 \end{itemize}
 
 \section{実験結果}
+各実験における学習モデルの評価や精査の結果は以下の通りになった。ここで実験結果として示されている数値として、性能評価指標（適合率・再現率・正解率）がある。適合率は、正確に予想された陽性サンプル数/予測された陽性サンプル数で表される。再現率は、正確に予測された陽性サンプル数/実際の陽性サンプル数で表される。正解率は、(正確に予測された陽性サンプル数+正確に予測された陰性サンプル数)/全サンプル数で表される。
 \subsection{実験1}
 \begin{figure}[htbp]
   \begin{minipage}[b]{0.45\linewidth}
@@ -117,6 +117,12 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
   \end{minipage}
 \end{figure}
 
+\subsubsection{学習モデルの評価}
+\begin{itemize}
+\item 適合率：tf.Tensor(0.453125, shape=(), dtype=float32)
+\item 再現率：tf.Tensor(1.0, shape=(), dtype=float32) 
+\item 全体の正解率：tf.Tensor(0.453125, shape=(), dtype=float32)
+\end{itemize}
 
 
 \subsection{実験2}
@@ -133,6 +139,21 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
   \end{minipage}
 \end{figure}
 
+\subsubsection{学習モデルの評価}
+\begin{itemize}
+\item 適合率：tf.Tensor(0.96638656, shape=(), dtype=float32)
+\item 再現率：tf.Tensor(0.7615894, shape=(), dtype=float32) 
+\item 正解率：tf.Tensor(0.8566308, shape=(), dtype=float32)
+\end{itemize}
+\subsubsection{Indian-Snakes-Datasetによる精査}
+\begin{itemize}
+\item 適合率：tf.Tensor(0.6117647, shape=(), dtype=float32)
+\item 再現率：tf.Tensor(0.3939394, shape=(), dtype=float32) 
+\item 正解率：tf.Tensor(0.44607842, shape=(), dtype=float32)
+\end{itemize}
+
+\clearpage
+
 \subsection{実験3}
 \begin{figure}[htbp]
   \begin{minipage}[b]{0.45\linewidth}
@@ -146,6 +167,21 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
     \caption{実験3 Loss}
   \end{minipage}
 \end{figure}
+
+\subsubsection{学習モデルの評価}
+\begin{itemize}
+\item 適合率：tf.Tensor(0.972973, shape=(), dtype=float32)
+\item 再現率：tf.Tensor(0.8181818, shape=(), dtype=float32) 
+\item 正解率：tf.Tensor(0.9052632, shape=(), dtype=float32)
+\end{itemize}
+\subsubsection{Indian-Snakes-Datasetによる精査}
+\begin{itemize}
+\item 適合率：tf.Tensor(0.7126437, shape=(), dtype=float32)
+\item 再現率：tf.Tensor(0.5344828, shape=(), dtype=float32) 
+\item 正解率：tf.Tensor(0.5611111, shape=(), dtype=float32)
+\end{itemize}
+
+\clearpage
 
 \subsection{実験4}
 \begin{figure}[htbp]
@@ -161,24 +197,37 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
   \end{minipage}
 \end{figure}
 
+\subsubsection{学習モデルの評価}
+\begin{itemize}
+\item 適合率：Precision result: 0.8222222328186035
+\item 再現率：Recall result: 0.9367088675498962
+\item 正解率：Binary Accuracy result: 0.8432835936546326
+\end{itemize}
+\subsubsection{Indian-Snakes-Datasetによる精査}
+\begin{itemize}
+\item 適合率：Precision result: 0.699999988079071
+\item 再現率：Recall result: 0.6968609690666199
+\item 正解率：Binary Accuracy result: 0.6092020869255066
+\end{itemize}
+
 \section{考察}
 
+\clearpage
 
 \section{意図していた実験計画との違い}
 行った実験の流れをガントチャートを用いて、表すと以下の通りになった。\par
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=150mm]{G2_Ganttchart.jpeg}
-\caption{行った実験の流れ}
+\caption{実験の流れ}
 \end{center}
 \end{figure}
 想定していた以上に環境構築で躓いてしまい、本来1週で構築する予定だったが3週ほどかかってしまった。データセットに関しては、開発期間全体を通して収集・編集をおこない、正答率向上を目指した。
 
 \section{まとめ}
-
+今回の実験では、画像に写っている蛇の毒の有無を予測し、正しいか確認することを目的として、正解率80\%を目指して実施した。残念ながら、最終的な正解率は約60\%と目標を達成することができなかった。しかし、実験の中で気づいた点として、「データセットの充実性」についての重要性が挙げられる。データセットをテスト用のデータに対応させるために工夫するたび、正解率が上がっていったことから、機械学習におけるデータセット内容の重要性について再認識することができた。また、実験を進めていくにつれ、機械学習の手法や開発に対する取り組み方についての理解を深めることができた。他にもGitHubを利用したバージョン管理や学科サーバーを利用した実験なども行うことができ、チーム開発として良い点だったと考える。
 
 \begin{thebibliography}{n}
-  \bibitem{kanazawa}レポート作成の手引き　レポートの基本的形式に関するガイド, \url{https://www.kanazawa-u.ac.jp/wp-content/uploads/2015/01/tebiki2.pdf}, 2020/07/02.
 	\bibitem{theme1}画像認識でよく聞く「CNN」とは？仕組みや特徴を1から解説, \url{https://aismiley.co.jp/ai_news/cnn/}, 2023/06/14.
 	\bibitem{theme2}画像認識の分野では欠かせない「CNN（畳み込みネットワーク）とは」, \url{https://www.paloaltoinsight.com/2022/12/09/cnn/},2023/06/14.
 \end{thebibliography}
