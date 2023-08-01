@@ -5,7 +5,7 @@
 \usepackage{url}
 
 \title{知能情報実験III（データマイニング班）\\毒のある蛇かそうでないかを画像判別}
-\author{215732C 佐久本元気, 215736F 西野大河, 215742A 米須悠, 215746C 新垣樹}
+\author{215732C 佐久本元気\\215736F 西野大河\\215742A 米須悠\\215746C 新垣樹\\}
 \date{提出日：2023年6月15日}
 \begin{document}
 \maketitle
@@ -21,18 +21,19 @@
 画像に写っている蛇の毒の有無を予測し、正しいか確認することが目的である。また、予測の正答率をできる限り高めることも目的の一つである。具体的な数値としては、正答率80\%を目標とする。
 
 \subsection{データセット構築}
-本実験では3種類のデータセットを構築して実験を行った。
+本実験では4種類のデータセットを構築して実験を行った。\par
+なお、データセット2\textasciitilde4の画像収集にはGoogle Chromeの拡張機能である「Image downloader - Imageye」を利用した。\par
 \subsubsection{データセット1}
 インドの毒蛇と毒なし蛇が含まれているデータセットである「Indian-Snakes-Dataset」をダウンロードし利用する。\par
 Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset}) \par
 
 \subsubsection{データセット2}
 %gebkiデータセットについての説明。
+無作為に選んだ毒蛇、毒なし蛇の画像を300枚ずつ集めたデータセット。
 用いる画像の条件は、「人や関係のない動物が写っていない」「文字がなるべく入っていない」とした。\par
 
 \subsubsection{データセット3}
-データセット2に世界各地の毒蛇、毒なし蛇の画像を追加したデータセット。まず、地域を北アメリカ州、南アメリカ州、アフリカ州、ヨーロッパ州、アジア州（さらに東南アジア、南アジア、中央アジア、西アジアに分ける）、オセアニア州に分け、各地域ごとに毒蛇、毒なし蛇を各2~5種類選定する。その中から地域ごとの蛇の画像が合計5枚になるようにデータセットを作成した。\par
-画像の収集にはChromeの拡張機能である「Image downloader - Imageye」を利用した。\par
+データセット2に世界各地の毒蛇、毒なし蛇の画像を追加したデータセット。まず、地域を北アメリカ州、南アメリカ州、アフリカ州、ヨーロッパ州、アジア州（さらに東南アジア、南アジア、中央アジア、西アジアに分ける）、オセアニア州に分け、各地域ごとに毒蛇、毒なし蛇を各2\textasciitilde5種類選定する。その中から地域ごとの蛇の画像が合計5枚になるようにデータセットを作成した。\par
 
 \subsubsection{データセット4}
 データセット3に各地域ごとの蛇の画像をさらに追加したデータセット。追加した枚数の内訳は以下の通りである。\par
@@ -54,25 +55,90 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
   \end{tabular}
 \end{table}
 
-\subsection{前処理}
+\subsection{実験1}
+\subsubsection{前処理}
 OpenCVで画像の前処理を行い、予測を適切に行えるようにした。 \par
 %OpenCVでの前処理の内容を具体的に記述する。
 
-\subsection{モデル選定}
+\subsubsection{モデル選定}
 本実験では画像認識を行った上で予測を行うため、畳み込みやプーリングを行うことができるCNNをアルゴリズムとして採用した。モデルに関しては、すでに事前学習されている分類モデルを利用する。%元にしたモデルを具体的に書く(VGG16?)
 なお、実験の際にはモデルに対し重みの値調整や新しいレイヤーの追加といったファインチューニングを施し実行する。%作成した学習モデルの内容を具体的に記述する。
 
-\subsection{パラメータ調整}
+\subsubsection{パラメータ調整}
 モデルに対する重み値や新しく追加するレイヤーの数等が当てはまる。%実施したファインチューニングの内容を具体的に記述する。
 
-\section{実験結果}
+\subsubsection{使用するデータセット}
 
+
+\section{実験結果}
+\subsection{実験1}
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.32]{ex1_acc.png}
+    \caption{Composite}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.32]{ex1_loss.png}
+    \caption{Gradation}
+  \end{minipage}
+\end{figure}
+
+\subsection{実験2}
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.33]{ex2_acc.png}
+    \caption{Composite}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.33]{ex2_loss.png}
+    \caption{Gradation}
+  \end{minipage}
+\end{figure}
+
+\subsection{実験3}
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.161]{ex3_acc.jpg}
+    \caption{Composite}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.161]{ex3_loss.jpg}
+    \caption{Gradation}
+  \end{minipage}
+\end{figure}
+
+\subsection{実験4}
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.435]{ex4_acc.png}
+    \caption{Composite}
+  \end{minipage}
+  \begin{minipage}[b]{0.45\linewidth}
+    \centering
+    \includegraphics[keepaspectratio, scale=0.435]{ex4_loss.png}
+    \caption{Gradation}
+  \end{minipage}
+\end{figure}
 
 \section{考察}
 
 
 \section{意図していた実験計画との違い}
-
+行った実験の流れをガントチャートを用いて、表すと以下の通りになった。\par
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=150mm]{G2_Ganttchart.jpeg}
+\caption{行った実験の流れ}
+\end{center}
+\end{figure}
+想定していた以上に環境構築で躓いてしまい、本来1週で構築する予定だったが3週ほどかかってしまった。データセットに関しては、開発期間全体を通して収集・編集をおこない、正答率向上を目指した。
 
 \section{まとめ}
 

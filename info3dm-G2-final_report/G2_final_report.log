@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.0.0-220214-2.6 (utf8.euc) (TeX Live 2022) (preloaded format=platex 2022.4.15)  31 JUL 2023 22:12
+This is e-pTeX, Version 3.141592653-p4.0.0-220214-2.6 (utf8.euc) (TeX Live 2022) (preloaded format=platex 2022.4.15)  1 AUG 2023 16:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -234,18 +234,82 @@ LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
 
 ]
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 41.
+(Font)              scaled to size 8.64899pt on input line 42.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 41.
- [3] [4]
-(./G2_final_report.aux) ) 
+(Font)              scaled to size 8.64899pt on input line 42.
+ [3]
+File: ex1_acc.png Graphic file (type bmp)
+<ex1_acc.png>
+
+Overfull \hbox (12.52844pt too wide) in paragraph at lines 78--79
+ [][] 
+ []
+
+File: ex1_loss.png Graphic file (type bmp)
+<ex1_loss.png>
+
+Overfull \hbox (16.38293pt too wide) in paragraph at lines 83--84
+ [][] 
+ []
+
+File: ex2_acc.png Graphic file (type bmp)
+<ex2_acc.png>
+
+Overfull \hbox (21.95032pt too wide) in paragraph at lines 92--93
+ [][] 
+ []
+
+File: ex2_loss.png Graphic file (type bmp)
+<ex2_loss.png>
+
+Overfull \hbox (13.00685pt too wide) in paragraph at lines 97--98
+ [][] 
+ []
+
+File: ex3_acc.jpg Graphic file (type bmp)
+<ex3_acc.jpg>
+
+Overfull \hbox (15.03381pt too wide) in paragraph at lines 106--107
+ [][] 
+ []
+
+File: ex3_loss.jpg Graphic file (type bmp)
+<ex3_loss.jpg>
+
+Overfull \hbox (6.63065pt too wide) in paragraph at lines 111--112
+ [][] 
+ []
+
+[4]
+File: ex4_acc.png Graphic file (type bmp)
+<ex4_acc.png>
+
+Overfull \hbox (18.19905pt too wide) in paragraph at lines 120--121
+ [][] 
+ []
+
+File: ex4_loss.png Graphic file (type bmp)
+<ex4_loss.png>
+
+Overfull \hbox (18.19905pt too wide) in paragraph at lines 125--126
+ [][] 
+ []
+
+File: G2_Ganttchart.jpeg Graphic file (type bmp)
+<G2_Ganttchart.jpeg>
+
+Overfull \hbox (19.92897pt too wide) in paragraph at lines 137--138
+ [] 
+ []
+
+[5] [6] (./G2_final_report.aux) ) 
 Here is how much of TeX's memory you used:
- 3276 strings out of 478724
- 48670 string characters out of 5858392
- 357929 words of memory out of 5000000
- 21719 multiletter control sequences out of 15000+600000
+ 3335 strings out of 478724
+ 49794 string characters out of 5858392
+ 356927 words of memory out of 5000000
+ 21756 multiletter control sequences out of 15000+600000
  481782 words of font info for 87 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 55i,8n,62p,587b,322s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 55i,8n,62p,587b,387s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on G2_final_report.dvi (5 pages, 11144 bytes).
+Output written on G2_final_report.dvi (7 pages, 14480 bytes).
