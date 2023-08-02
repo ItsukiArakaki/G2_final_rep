@@ -3,6 +3,25 @@
 \usepackage{listings}
 \usepackage{amsmath}
 \usepackage{url}
+\usepackage{listings,jvlisting}
+\lstset{
+  basicstyle={\ttfamily},
+  identifierstyle={\small},
+  commentstyle={\smallitshape},
+  keywordstyle={\small\bfseries},
+  ndkeywordstyle={\small},
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,
+  columns=[l]{fullflexible},
+  numbers=left,
+  xrightmargin=0zw,
+  xleftmargin=3zw,
+  numberstyle={\scriptsize},
+  stepnumber=1,
+  numbersep=1zw,
+  lineskip=-0.5ex
+}
 
 \title{知能情報実験III（データマイニング班）\\毒のある蛇かそうでないかを画像判別}
 \author{215732C 佐久本元気\\215736F 西野大河\\215742A 米須悠\\215746C 新垣樹\\}
@@ -25,22 +44,104 @@
 なお、データセット2\textasciitilde4の画像収集にはGoogle Chromeの拡張機能である「Image downloader - Imageye」を利用した。\par
 
 \subsection{前処理}
-OpenCVで画像の前処理を行い、予測を適切に行えるようにした。 \par
-%OpenCVでの前処理の内容を具体的に記述する。
+以下のようにして、機械学習モデルの正確性を上げた。
+
+\subsubsection{データセットにおける前処理}
+毎実験ごとに画像データを一枚一枚目でチェックし、クレンジングを行った。\\
+具体的には、他の動物が写っていたり、体の一部が欠けている蛇、アルビノなどノイズになりそうな画像などを各々分担しながら消去し、実験に用いた。
+
+\subsubsection{データの正規化}
+OpenCVで画像の前処理を行い、予測を適切に行えるようにした。具体的には、0\textasciitilde255の数字の集合である画像データを0~1の範囲に縮小することで、学習コストの削減を試みた。
+
+\subsubsection{データ分割}
+ホールドアウト法を用いて、以下のような割合でデータを分割した。\par
+Train :70\%
+Val:20\%
+Test:10\%
+
 
 \subsection{実験1}
 \subsubsection{実験内容}
 データセットをtrain, val, testで分割し、人がhappyかsadを識別する学習モデルを用いて、学習モデルの評価を行う。また、学習用としてKaggleで取得したデータセットのclassification snake speciesを利用する。\par
-\subsubsection{使用する学習モデル}
+
+\subsubsection{モデル選定}
+本実験では画像から毒あり毒無し蛇の特徴量を抽出してもらった上で予測を行うため、畳み込みやプーリングを行うことができるCNNをアルゴリズムとして採用した。
+最後の出力としては0か１を出力させるのが目的なので、sigmoid関数を使う。\par
+学習モデルの作成は、以下のImageClassificationを参考に行なった。\par
 ImageClassification (\url{https://github.com/nicknochnack/ImageClassification})
+
 \subsubsection{使用するデータセット}
 classification snake species (\url{https://www.kaggle.com/datasets/nikhilshingadiya/sample-0})
+
+\subsubsection{パラメータ調整}
+実験1ではパラメータを以下のように設定した。\par
+
+\begin{lstlisting}[caption=パラメータ(実験1),label=fuga]
+model = Sequential()
+model.add(Conv2D(16, (3,3), 1, activation='relu', input_shape=(256,256,3))) 
+#first layer needs to have input
+model.add(MaxPooling2D())#take maximum value from 2x2 filter,only condence 
+
+model.add(Conv2D(32, (3,3), 1, activation='relu'))
+model.add(MaxPooling2D())
+
+model.add(Conv2D(16, (3,3), 1, activation='relu'))
+model.add(MaxPooling2D())
+
+model.add(Flatten())#make it to 1D
+
+#fully connected layers
+#256neurons
+model.add(Dense(256, activation='relu'))#going to have 256 values as our output
+model.add(Dense(1, activation='sigmoid'))
+#single output & map to 0 or1
+\end{lstlisting}
+
+以下はsummaryの結果である。\par
+{\fontsize{10pt}{9pt}\selectfont
+\begin{verbatim}
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 254, 254, 16)      448       
+                                                                 
+ max_pooling2d (MaxPooling2  (None, 127, 127, 16)      0         
+ D)                                                              
+                                                                 
+ conv2d_1 (Conv2D)           (None, 125, 125, 32)      4640      
+                                                                 
+ max_pooling2d_1 (MaxPoolin  (None, 62, 62, 32)        0         
+ g2D)                                                            
+                                                                 
+ conv2d_2 (Conv2D)           (None, 60, 60, 16)        4624      
+                                                                 
+ max_pooling2d_2 (MaxPoolin  (None, 30, 30, 16)        0         
+ g2D)                                                            
+                                                                 
+ flatten (Flatten)           (None, 14400)             0         
+                                                                 
+ dense (Dense)               (None, 256)               3686656   
+                                                                 
+ dense_1 (Dense)             (None, 1)                 257       
+                                                                 
+=================================================================
+Total params: 3696625 (14.10 MB)
+Trainable params: 3696625 (14.10 MB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________
+\end{verbatim}
+}
+
 
 \subsection{実験2}
 \subsubsection{実験内容}
 学習済みモデルの作成および学習モデルの評価を行う。新たなデータセットdataset1を用いて学習し、上述のデータセットとは異なるindian datasetsを用いて再テストを行う。
-\subsubsection{使用する学習モデル}
-学習モデルは、VGG16（TensorFlow上にある学習済みモデル）にdrop out layerの追加などのファインチューニングを行い作成したものを使用する。
+
+\subsubsection{モデル選定}
+実験1と同様にCNNを用いるが、すでに事前学習されているVGG16の全結合層以外のレイヤーにオリジナルでlayerを追加し、追加分レイヤーだけをファインチューニングして利用する。\par
+オリジナルで追加したlayerの特徴としてはロバストネスのためのDropout layerを用いている。
+
 \subsubsection{使用するデータセット}
 訓練用データセット
 \begin{itemize}
@@ -52,11 +153,81 @@ classification snake species (\url{https://www.kaggle.com/datasets/nikhilshingad
 Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
 \end{itemize}
 
+\subsubsection{パラメータ調整}
+実験2ではパラメータを以下のように設定した。\par
+\begin{lstlisting}[caption=パラメータ(実験2),label=fuga]
+#txtファイルで保存で表示？
+#sequential neural network modelを作成。model.addでlayerを追加する。
+model = Sequential()
+
+model.add(base_model)
+
+#追加の畳み込み層
+model.add(Conv2D(64, kernel_size=3, padding="same", activation="relu"))
+model.add(MaxPooling2D())
+model.add(Dropout(0.25))
+
+#全結合層
+model.add(Flatten())
+model.add(Dense(256, activation='relu'))
+model.add(Dropout(0.5))
+model.add(Dense(128, activation="relu")) 
+model.add(Dense(64, activation="relu")) 
+model.add(Dropout(0.5))
+
+#0,1出力が欲しいので、softmax間数を用いる
+model.add(Dense(1, activation='sigmoid'))
+
+#txtファイルで保存で表示？
+\end{lstlisting}\par
+以下はsummaryの結果である。\par
+{\fontsize{10pt}{9pt}\selectfont
+\begin{verbatim}
+Model: "sequential_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ vgg16 (Functional)          (None, 8, 8, 512)         14714688  
+                                                                 
+ conv2d_1 (Conv2D)           (None, 8, 8, 64)          294976    
+                                                                 
+ max_pooling2d_1 (MaxPoolin  (None, 4, 4, 64)          0         
+ g2D)                                                            
+                                                                 
+ dropout_3 (Dropout)         (None, 4, 4, 64)          0         
+                                                                 
+ flatten_1 (Flatten)         (None, 1024)              0         
+                                                                 
+ dense_4 (Dense)             (None, 256)               262400    
+                                                                 
+ dropout_4 (Dropout)         (None, 256)               0         
+                                                                 
+ dense_5 (Dense)             (None, 128)               32896     
+                                                                 
+ dense_6 (Dense)             (None, 64)                8256      
+                                                                 
+ dropout_5 (Dropout)         (None, 64)                0         
+                                                                 
+ dense_7 (Dense)             (None, 1)                 65        
+                                                                 
+=================================================================
+Total params: 15313281 (58.42 MB)
+Trainable params: 598593 (2.28 MB)
+Non-trainable params: 14714688 (56.13 MB)
+_________________________________________________________________
+\end{verbatim}
+}\par
+実験の際には、VGG16の全結合層以外のレイヤーを用い、その下にlayerを追加した。
+これらの重みに関しては、VGG16モデルの重みをImageNetデータセットから事前に学習されたものに設定された状態のままにしておくため、これの重みは更新しないこととする。
+オリジナルで追加したlayerにのみ重みを更新することとする
+
 \subsection{実験3}
 \subsubsection{実験内容}
 実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。新たなデータセットdataset2を用いて学習し、Indian-Snakes-Datasetを用いて精査を行う。
-\subsubsection{使用する学習モデル}
-実験2と同様の学習モデルを使用する。
+
+\subsubsection{モデル選定}
+実験2で用いた学習モデルをそのまま使用する。
+
 \subsubsection{使用するデータセット}
 訓練用データセット
 \begin{itemize}
@@ -67,16 +238,20 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
 \item Indian-Snakes-Dataset …実験2同様のデータセット。
 \end{itemize}
 
+\subsubsection{パラメータ調整}
+実験2と同様に行う。
+
 \subsection{実験4}
 \subsubsection{実験内容}
 実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。新たなデータセットdataset3を用いて学習し、Indian-Snakes-Datasetを用いて精査を行う。
-\subsubsection{使用する学習モデル}
-実験2と同様の学習モデルを使用する。
+
+\subsubsection{モデル選定}
+実験2で用いた学習モデルをそのまま使用する。
+
 \subsubsection{使用するデータセット}
 訓練用データセット
 \begin{itemize}
 \item dataset3…実験3で訓練用データセットとして用いたdataset2に各地域ごとの蛇の画像をさらに追加したデータセット。追加した枚数の内訳は以下の通りである。
-
 \end{itemize}\par
 \begin{table}[htb]
 \centering
@@ -100,6 +275,9 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
 \begin{itemize}
 \item Indian-Snakes-Dataset …実験2同様のデータセット。
 \end{itemize}
+
+\subsubsection{パラメータ調整}
+実験2と同様に行う。
 
 \section{実験結果}
 各実験における学習モデルの評価や精査の結果は以下の通りになった。ここで実験結果として示されている数値として、性能評価指標（適合率・再現率・正解率）がある。適合率は、正確に予想された陽性サンプル数/予測された陽性サンプル数で表される。再現率は、正確に予測された陽性サンプル数/実際の陽性サンプル数で表される。正解率は、(正確に予測された陽性サンプル数+正確に予測された陰性サンプル数)/全サンプル数で表される。
@@ -211,6 +389,12 @@ Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
 \end{itemize}
 
 \section{考察}
+\subsection{実験1}
+うまくいかなかった原因として、データセットと学習モデル両方に問題があったと考えられる。データセットは、kaggleで取得したデータセットを利用したが、体の一部が無い絶命状態の蛇や、人間の写真など投稿者のプライベート画像が大量に混入しており、信頼性のないものであった。学習モデルは、学習反復回数が5回のみで非常に少なかったことが挙げられる。また、過学習対策を行わなかったことも原因の一つとして挙げられる。他にも、蛇の画像を識別するのに、人間の表情を見分ける学習モデルを用いたことも原因として挙げられる。\par
+　実験1から学んだ改善点として、データセットに関しては、より適切なデータセットを探した上で、データのクレンジングを行うことが挙げられる。また、毒蛇と無毒蛇を種類ごとに調べることで、データセットの正確性を高められると考えた。学習に関しては、学習回数が足りてないように感じたため、学習反復回数を5回から20回に増やすことが挙げられた。また、VGG16のような汎用的な学習済みモデルにファインチューニングを施すことや、過学習による汎化性能の低下の対策として、NNモデルにdropout layerを追加することが挙げられた。
+
+\subsection{実験2}
+
 
 \clearpage
 
