@@ -332,7 +332,7 @@ _________________________________________________________________
 \item 再現率：tf.Tensor(0.7615894, shape=(), dtype=float32) 
 \item 正解率：tf.Tensor(0.8566308, shape=(), dtype=float32)
 \end{itemize}
-\subsubsection{Indian-Snakes-Datasetによる精査}
+\subsubsection{indian datasetsによる精査}
 \begin{itemize}
 \item 適合率：tf.Tensor(0.6117647, shape=(), dtype=float32)
 \item 再現率：tf.Tensor(0.3939394, shape=(), dtype=float32) 
@@ -359,7 +359,7 @@ _________________________________________________________________
 \item 再現率：tf.Tensor(0.8181818, shape=(), dtype=float32) 
 \item 正解率：tf.Tensor(0.9052632, shape=(), dtype=float32)
 \end{itemize}
-\subsubsection{Indian-Snakes-Datasetによる精査}
+\subsubsection{indian datasetsによる精査}
 \begin{itemize}
 \item 適合率：tf.Tensor(0.7126437, shape=(), dtype=float32)
 \item 再現率：tf.Tensor(0.5344828, shape=(), dtype=float32) 
@@ -388,7 +388,7 @@ _________________________________________________________________
 \item 再現率：Recall result: 0.9367088675498962
 \item 正解率：Binary Accuracy result: 0.8432835936546326
 \end{itemize}
-\subsubsection{Indian-Snakes-Datasetによる精査}
+\subsubsection{indian datasetsによる精査}
 \begin{itemize}
 \item 適合率：Precision result: 0.699999988079071
 \item 再現率：Recall result: 0.6968609690666199
@@ -409,6 +409,8 @@ _________________________________________________________________
 そこで、データセットに追加する分の画像を蛇一種あたり30枚ほどに増加させることで、正解率向上を目指せるのではないかと考えた。なお、追加する蛇の種類はすでに確定しており、実験2での画像追加より作業量は多くならないと見込まれるため、データセットを作成する人員を減らして進める。
 
 \subsection{実験4}
+うまくいかなかった原因として、Train,Val,Testデータにそれぞれデータの偏りがあったことが挙げられる。また、データセットの画像が多すぎたことから、ノイズを完全に取り除けていなかった可能性があった。\par
+改善点として、交差検証を行うことが挙げられる。本実験は、ホールドアウト法で行なっていたため、データの偏りを考慮していなかった。また、説明変数を減らして汎化性能を高めるために、正則化の実装が挙げられる。\cite{theme4}
 
 \clearpage
 
@@ -429,5 +431,6 @@ _________________________________________________________________
 	\bibitem{theme1}画像認識でよく聞く「CNN」とは？仕組みや特徴を1から解説, \url{https://aismiley.co.jp/ai_news/cnn/}, 2023/06/14.
 	\bibitem{theme2}画像認識の分野では欠かせない「CNN（畳み込みネットワーク）とは」, \url{https://www.paloaltoinsight.com/2022/12/09/cnn/},2023/06/14.
 	\bibitem{theme3}ImageClassification, \url{https://github.com/nicknochnack/ImageClassification}, 2023/06/08
+	\bibitem{theme4}NRI 野村総合研究所 用語解説 過学習\url{https://www.nri.com/jp/knowledge/glossary/lst/ka/overfitting},2023/08/03
 \end{thebibliography}
 \end{document}

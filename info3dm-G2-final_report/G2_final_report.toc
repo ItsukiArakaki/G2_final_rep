@@ -31,13 +31,13 @@
 \contentsline {subsubsection}{\numberline {3.1.1}学習モデルの評価}{9}{}%
 \contentsline {subsection}{\numberline {3.2}実験2}{9}{}%
 \contentsline {subsubsection}{\numberline {3.2.1}学習モデルの評価}{9}{}%
-\contentsline {subsubsection}{\numberline {3.2.2}Indian-Snakes-Datasetによる精査}{10}{}%
+\contentsline {subsubsection}{\numberline {3.2.2}indian datasetsによる精査}{10}{}%
 \contentsline {subsection}{\numberline {3.3}実験3}{10}{}%
 \contentsline {subsubsection}{\numberline {3.3.1}学習モデルの評価}{10}{}%
-\contentsline {subsubsection}{\numberline {3.3.2}Indian-Snakes-Datasetによる精査}{10}{}%
+\contentsline {subsubsection}{\numberline {3.3.2}indian datasetsによる精査}{10}{}%
 \contentsline {subsection}{\numberline {3.4}実験4}{11}{}%
 \contentsline {subsubsection}{\numberline {3.4.1}学習モデルの評価}{11}{}%
-\contentsline {subsubsection}{\numberline {3.4.2}Indian-Snakes-Datasetによる精査}{11}{}%
+\contentsline {subsubsection}{\numberline {3.4.2}indian datasetsによる精査}{11}{}%
 \contentsline {section}{\numberline {4}考察}{11}{}%
 \contentsline {subsection}{\numberline {4.1}実験1}{11}{}%
 \contentsline {subsection}{\numberline {4.2}実験2}{12}{}%

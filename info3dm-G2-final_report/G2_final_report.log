@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.0.0-220214-2.6 (utf8.euc) (TeX Live 2022) (preloaded format=platex 2022.4.15)  3 AUG 2023 00:30
+This is e-pTeX, Version 3.141592653-p4.0.0-220214-2.6 (utf8.euc) (TeX Live 2022) (preloaded format=platex 2022.4.15)  3 AUG 2023 00:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -335,14 +335,14 @@ Overfull \hbox (18.19905pt too wide) in paragraph at lines 380--381
 File: G2_Ganttchart.jpeg Graphic file (type bmp)
 <G2_Ganttchart.jpeg>
 
-Overfull \hbox (19.92897pt too wide) in paragraph at lines 419--420
+Overfull \hbox (19.92897pt too wide) in paragraph at lines 421--422
  [] 
  []
 
 [13
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 431--432
+Underfull \hbox (badness 10000) in paragraph at lines 433--434
 []\OT1/cmr/m/n/10 ImageClassification, $\OT1/cmtt/m/n/10 https : / / github . c
 om / nicknochnack / ImageClassification$\OT1/cmr/m/n/10 ,
  []
@@ -353,12 +353,12 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3670 strings out of 478724
- 53174 string characters out of 5858392
- 454960 words of memory out of 5000000
- 22086 multiletter control sequences out of 15000+600000
+ 3671 strings out of 478724
+ 53182 string characters out of 5858392
+ 454963 words of memory out of 5000000
+ 22087 multiletter control sequences out of 15000+600000
  482587 words of font info for 91 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
  55i,8n,62p,713b,1740s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on G2_final_report.dvi (15 pages, 38592 bytes).
+Output written on G2_final_report.dvi (15 pages, 39504 bytes).
