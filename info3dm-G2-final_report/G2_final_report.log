@@ -1,4 +1,4 @@
-This is e-pTeX, Version 3.141592653-p4.0.0-220214-2.6 (utf8.euc) (TeX Live 2022) (preloaded format=platex 2022.4.15)  2 AUG 2023 23:18
+This is e-pTeX, Version 3.141592653-p4.0.0-220214-2.6 (utf8.euc) (TeX Live 2022) (preloaded format=platex 2022.4.15)  3 AUG 2023 00:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -248,79 +248,84 @@ LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
  [2
 
 ]
-Underfull \hbox (badness 4341) in paragraph at lines 74--75
+Underfull \hbox (badness 4341) in paragraph at lines 82--83
 []\OT1/cmr/m/n/10 classification snake species ($\OT1/cmtt/m/n/10 https : / / w
 ww . kaggle . com / datasets / nikhilshingadiya /
  []
 
+[3
+
+]
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 79.
+(Font)              scaled to size 8.64899pt on input line 87.
 LaTeX Font Info:    Font shape `JY1/mc/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 79.
+(Font)              scaled to size 8.64899pt on input line 87.
 LaTeX Font Info:    Font shape `JT1/mc/m/n' will be
-(Font)              scaled to size 6.72699pt on input line 80.
+(Font)              scaled to size 6.72699pt on input line 88.
 LaTeX Font Info:    Font shape `JT1/gt/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 80.
+(Font)              scaled to size 8.64899pt on input line 88.
 LaTeX Font Info:    Font shape `JY1/gt/m/n' will be
-(Font)              scaled to size 8.64899pt on input line 80.
-[3] [4] [5] [6] [7]
+(Font)              scaled to size 8.64899pt on input line 88.
+ [4] [5] [6] [7] [8
+
+]
 File: ex1_acc.png Graphic file (type bmp)
 <ex1_acc.png>
 
-Overfull \hbox (12.52844pt too wide) in paragraph at lines 288--289
+Overfull \hbox (12.52844pt too wide) in paragraph at lines 296--297
  [][] 
  []
 
 File: ex1_loss.png Graphic file (type bmp)
 <ex1_loss.png>
 
-Overfull \hbox (16.06172pt too wide) in paragraph at lines 293--294
+Overfull \hbox (16.06172pt too wide) in paragraph at lines 301--302
  [][] 
  []
 
 File: ex2_acc.png Graphic file (type bmp)
 <ex2_acc.png>
 
-Overfull \hbox (21.95032pt too wide) in paragraph at lines 310--311
+Overfull \hbox (21.95032pt too wide) in paragraph at lines 319--320
  [][] 
  []
 
 File: ex2_loss.png Graphic file (type bmp)
 <ex2_loss.png>
 
-Overfull \hbox (13.00685pt too wide) in paragraph at lines 315--316
+Overfull \hbox (13.00685pt too wide) in paragraph at lines 324--325
  [][] 
  []
 
-[8] [9]
+[9
+
+]
 File: ex3_acc.jpg Graphic file (type bmp)
 <ex3_acc.jpg>
 
-Overfull \hbox (15.03381pt too wide) in paragraph at lines 339--340
+Overfull \hbox (15.03381pt too wide) in paragraph at lines 346--347
  [][] 
  []
 
 File: ex3_loss.jpg Graphic file (type bmp)
 <ex3_loss.jpg>
 
-Overfull \hbox (6.63065pt too wide) in paragraph at lines 344--345
+Overfull \hbox (6.63065pt too wide) in paragraph at lines 351--352
  [][] 
  []
 
-[10
-
-]
+[10]
 File: ex4_acc.png Graphic file (type bmp)
 <ex4_acc.png>
 
-Overfull \hbox (18.19905pt too wide) in paragraph at lines 368--369
+Overfull \hbox (18.19905pt too wide) in paragraph at lines 375--376
  [][] 
  []
 
 File: ex4_loss.png Graphic file (type bmp)
 <ex4_loss.png>
 
-Overfull \hbox (18.19905pt too wide) in paragraph at lines 373--374
+Overfull \hbox (18.19905pt too wide) in paragraph at lines 380--381
  [][] 
  []
 
@@ -330,24 +335,30 @@ Overfull \hbox (18.19905pt too wide) in paragraph at lines 373--374
 File: G2_Ganttchart.jpeg Graphic file (type bmp)
 <G2_Ganttchart.jpeg>
 
-Overfull \hbox (19.92897pt too wide) in paragraph at lines 405--406
+Overfull \hbox (19.92897pt too wide) in paragraph at lines 419--420
  [] 
  []
 
 [13
 
-] [14] (./G2_final_report.aux)
+]
+Underfull \hbox (badness 10000) in paragraph at lines 431--432
+[]\OT1/cmr/m/n/10 ImageClassification, $\OT1/cmtt/m/n/10 https : / / github . c
+om / nicknochnack / ImageClassification$\OT1/cmr/m/n/10 ,
+ []
+
+[14] (./G2_final_report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 3669 strings out of 478724
- 53166 string characters out of 5858392
- 415957 words of memory out of 5000000
- 22085 multiletter control sequences out of 15000+600000
+ 3670 strings out of 478724
+ 53174 string characters out of 5858392
+ 454960 words of memory out of 5000000
+ 22086 multiletter control sequences out of 15000+600000
  482587 words of font info for 91 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
  55i,8n,62p,713b,1740s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on G2_final_report.dvi (15 pages, 36040 bytes).
+Output written on G2_final_report.dvi (15 pages, 38592 bytes).

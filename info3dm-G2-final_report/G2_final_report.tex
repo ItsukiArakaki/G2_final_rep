@@ -40,18 +40,26 @@
 画像に写っている蛇の毒の有無を予測し、正しいか確認することが目的である。また、予測の正答率をできる限り高めることも目的の一つである。具体的な数値としては、正解率80\%を目標とする。
 
 \subsection{データセット構築}
-本実験では4種類のデータセットを構築して実験を行った。\par
-なお、データセット2\textasciitilde4の画像収集にはGoogle Chromeの拡張機能である「Image downloader - Imageye」を利用した。\par
+本実験では5種類のデータセットを構築して実験を行った。各データセットの名称は以下の通りである。\par
+\begin{itemize}
+\item classification snake species
+\item Indian-Snakes-Dataset(以下 indian datasets と呼ぶ)
+\item dataset1
+\item dataset2
+\item dataset3
+\end{itemize}\par
+なお、dataset1\textasciitilde3の画像収集にはGoogle Chromeの拡張機能である「Image downloader - Imageye」を利用した。\par
+
+\clearpage
 
 \subsection{前処理}
 以下のようにして、機械学習モデルの正確性を上げた。
 
 \subsubsection{データセットにおける前処理}
-毎実験ごとに画像データを一枚一枚目でチェックし、クレンジングを行った。\\
-具体的には、他の動物が写っていたり、体の一部が欠けている蛇、アルビノなどノイズになりそうな画像などを各々分担しながら消去し、実験に用いた。
+毎実験ごとに画像データを一枚一枚目でチェックし、クレンジングを行った。具体的には、他の動物が写っていたり、体の一部が欠けている蛇、アルビノなどノイズになりそうな画像などを各々分担しながら消去し、実験に用いた。
 
 \subsubsection{データの正規化}
-OpenCVで画像の前処理を行い、予測を適切に行えるようにした。具体的には、0\textasciitilde255の数字の集合である画像データを0~1の範囲に縮小することで、学習コストの削減を試みた。
+OpenCVで画像の前処理を行い、予測を適切に行えるようにした。具体的には、0\textasciitilde255の数字の集合である画像データを0\textasciitilde1の範囲に縮小することで、学習コストの削減を試みた。
 
 \subsubsection{データ分割}
 ホールドアウト法を用いて、以下のような割合でデータを分割した。\par
@@ -62,15 +70,15 @@ Test:10\%
 
 \subsection{実験1}
 \subsubsection{実験内容}
-データセットをtrain, val, testで分割し、人がhappyかsadを識別する学習モデルを用いて、学習モデルの評価を行う。また、学習用としてKaggleで取得したデータセットのclassification snake speciesを利用する。\par
+データセットをTrain, Val, Testで分割し、人がhappyかsadを識別する学習モデルを用いて、学習モデルの評価を行う。また、学習用としてKaggleで取得したデータセットのclassification snake speciesを利用する。\par
 
 \subsubsection{モデル選定}
 本実験では画像から毒あり毒無し蛇の特徴量を抽出してもらった上で予測を行うため、畳み込みやプーリングを行うことができるCNNをアルゴリズムとして採用した。
 最後の出力としては0か１を出力させるのが目的なので、sigmoid関数を使う。\par
-学習モデルの作成は、以下のImageClassificationを参考に行なった。\par
-ImageClassification (\url{https://github.com/nicknochnack/ImageClassification})
+学習モデルの作成は、ImageClassification\cite{theme3}を参考に行なった。\par
 
 \subsubsection{使用するデータセット}
+Kaggle で取得したデータセットの classification snake species を利用する。\par
 classification snake species (\url{https://www.kaggle.com/datasets/nikhilshingadiya/sample-0})
 
 \subsubsection{パラメータ調整}
@@ -145,29 +153,25 @@ _________________________________________________________________
 \subsubsection{使用するデータセット}
 訓練用データセット
 \begin{itemize}
-\item dataset1…無作為に選んだ毒蛇・毒なし蛇の画像（ハブやアカマタ等16種）を合計600枚程度集めたデータセット。用いる画像の条件は、「人や関係のない動物が写っていない」「文字がなるべく入っていない」とした。
+\item dataset1…無作為に選んだ毒蛇・毒なし蛇の画像（ハブやアカマタ等16種）を合計600枚程度集めたデータセット。
 \end{itemize}\par
 評価用データセット
 \begin{itemize}
-\item Indian-Snakes-Dataset…インドの毒蛇と毒なし蛇が含まれている信頼性の高いデータセット。GitHub上から、ダウンロードし利用する。\\
+\item Indian-Snakes-Dataset(以下 indian datasetsと呼ぶ)…インドの毒蛇と毒なし蛇が含まれている信頼性の高いデータセット。GitHub上から、ダウンロードし利用する。\\
 Indian-Snakes-Dataset  (\url{https://github.com/arjun921/Indian-Snakes-Dataset})
 \end{itemize}
 
 \subsubsection{パラメータ調整}
 実験2ではパラメータを以下のように設定した。\par
 \begin{lstlisting}[caption=パラメータ(実験2),label=fuga]
-#txtファイルで保存で表示？
-#sequential neural network modelを作成。model.addでlayerを追加する。
 model = Sequential()
 
 model.add(base_model)
 
-#追加の畳み込み層
 model.add(Conv2D(64, kernel_size=3, padding="same", activation="relu"))
 model.add(MaxPooling2D())
 model.add(Dropout(0.25))
 
-#全結合層
 model.add(Flatten())
 model.add(Dense(256, activation='relu'))
 model.add(Dropout(0.5))
@@ -175,10 +179,8 @@ model.add(Dense(128, activation="relu"))
 model.add(Dense(64, activation="relu")) 
 model.add(Dropout(0.5))
 
-#0,1出力が欲しいので、softmax間数を用いる
 model.add(Dense(1, activation='sigmoid'))
 
-#txtファイルで保存で表示？
 \end{lstlisting}\par
 以下はsummaryの結果である。\par
 {\fontsize{10pt}{9pt}\selectfont
@@ -219,11 +221,11 @@ _________________________________________________________________
 }\par
 実験の際には、VGG16の全結合層以外のレイヤーを用い、その下にlayerを追加した。
 これらの重みに関しては、VGG16モデルの重みをImageNetデータセットから事前に学習されたものに設定された状態のままにしておくため、これの重みは更新しないこととする。
-オリジナルで追加したlayerにのみ重みを更新することとする
+オリジナルで追加したlayerにのみ重みを更新することとする。
 
 \subsection{実験3}
 \subsubsection{実験内容}
-実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。新たなデータセットdataset2を用いて学習し、Indian-Snakes-Datasetを用いて精査を行う。
+実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。新たなデータセットdataset2を用いて学習し、indian datasetsを用いて精査を行う。
 
 \subsubsection{モデル選定}
 実験2で用いた学習モデルをそのまま使用する。
@@ -231,11 +233,11 @@ _________________________________________________________________
 \subsubsection{使用するデータセット}
 訓練用データセット
 \begin{itemize}
-\item dataset2…実験2で訓練用データセットとして用いたdataset1に世界各地の毒蛇、毒なし蛇の画像を追加したデータセット。まず、地域を北アメリカ州、南アメリカ州、アフリカ州、ヨーロッパ州、アジア州（さらに東南アジア、南アジア、中央アジア、西アジアに分ける）、オセアニア州に分け、各地域ごとに毒蛇、毒なし蛇を各2\textasciitilde5種類選定する。その中から地域ごとの蛇の画像が合計5枚になるようにデータセットに追加した。
+\item dataset2…実験2で訓練用データセットとして用いたdataset1に世界各地の毒蛇、毒なし蛇の画像を追加したデータセット。地域を北アメリカ州、南アメリカ州、アフリカ州、ヨーロッパ州、アジア州（さらに東南アジア、南アジア、中央アジア、西アジアに分ける）、オセアニア州に分け、各地域ごとに毒蛇、毒なし蛇を各2\textasciitilde5種類選定する。その中から地域ごとの蛇の画像が合計5枚になるようにデータセットに追加した。
 \end{itemize}\par
 評価用データセット
 \begin{itemize}
-\item Indian-Snakes-Dataset …実験2同様のデータセット。
+\item indian datasets …実験2同様のデータセット。
 \end{itemize}
 
 \subsubsection{パラメータ調整}
@@ -243,7 +245,7 @@ _________________________________________________________________
 
 \subsection{実験4}
 \subsubsection{実験内容}
-実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。新たなデータセットdataset3を用いて学習し、Indian-Snakes-Datasetを用いて精査を行う。
+実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。新たなデータセットdataset3を用いて学習し、indian datasetsを用いて精査を行う。
 
 \subsubsection{モデル選定}
 実験2で用いた学習モデルをそのまま使用する。
@@ -253,6 +255,9 @@ _________________________________________________________________
 \begin{itemize}
 \item dataset3…実験3で訓練用データセットとして用いたdataset2に各地域ごとの蛇の画像をさらに追加したデータセット。追加した枚数の内訳は以下の通りである。
 \end{itemize}\par
+
+\clearpage
+
 \begin{table}[htb]
 \centering
   \caption{データセット3に追加した枚数の内訳}
@@ -273,7 +278,7 @@ _________________________________________________________________
 
 評価用データセット
 \begin{itemize}
-\item Indian-Snakes-Dataset …実験2同様のデータセット。
+\item indian datasets …実験2同様のデータセット。
 \end{itemize}
 
 \subsubsection{パラメータ調整}
@@ -282,6 +287,9 @@ _________________________________________________________________
 \section{実験結果}
 各実験における学習モデルの評価や精査の結果は以下の通りになった。ここで実験結果として示されている数値として、性能評価指標（適合率・再現率・正解率）がある。適合率は、正確に予想された陽性サンプル数/予測された陽性サンプル数で表される。再現率は、正確に予測された陽性サンプル数/実際の陽性サンプル数で表される。正解率は、(正確に予測された陽性サンプル数+正確に予測された陰性サンプル数)/全サンプル数で表される。
 \subsection{実験1}
+
+\clearpage
+
 \begin{figure}[htbp]
   \begin{minipage}[b]{0.45\linewidth}
     \centering
@@ -296,6 +304,7 @@ _________________________________________________________________
 \end{figure}
 
 \subsubsection{学習モデルの評価}
+
 \begin{itemize}
 \item 適合率：tf.Tensor(0.453125, shape=(), dtype=float32)
 \item 再現率：tf.Tensor(1.0, shape=(), dtype=float32) 
@@ -329,8 +338,6 @@ _________________________________________________________________
 \item 再現率：tf.Tensor(0.3939394, shape=(), dtype=float32) 
 \item 正解率：tf.Tensor(0.44607842, shape=(), dtype=float32)
 \end{itemize}
-
-\clearpage
 
 \subsection{実験3}
 \begin{figure}[htbp]
@@ -391,10 +398,17 @@ _________________________________________________________________
 \section{考察}
 \subsection{実験1}
 うまくいかなかった原因として、データセットと学習モデル両方に問題があったと考えられる。データセットは、kaggleで取得したデータセットを利用したが、体の一部が無い絶命状態の蛇や、人間の写真など投稿者のプライベート画像が大量に混入しており、信頼性のないものであった。学習モデルは、学習反復回数が5回のみで非常に少なかったことが挙げられる。また、過学習対策を行わなかったことも原因の一つとして挙げられる。他にも、蛇の画像を識別するのに、人間の表情を見分ける学習モデルを用いたことも原因として挙げられる。\par
-　実験1から学んだ改善点として、データセットに関しては、より適切なデータセットを探した上で、データのクレンジングを行うことが挙げられる。また、毒蛇と無毒蛇を種類ごとに調べることで、データセットの正確性を高められると考えた。学習に関しては、学習回数が足りてないように感じたため、学習反復回数を5回から20回に増やすことが挙げられた。また、VGG16のような汎用的な学習済みモデルにファインチューニングを施すことや、過学習による汎化性能の低下の対策として、NNモデルにdropout layerを追加することが挙げられた。
+実験1から学んだ改善点として、データセットに関しては、より適切なデータセットを探した上で、データのクレンジングを行うことが挙げられる。また、毒蛇と無毒蛇を種類ごとに調べることで、データセットの正確性を高められると考えた。学習に関しては、学習回数が足りてないように感じたため、学習反復回数を5回から20回に増やすことが挙げられた。また、VGG16のような汎用的な学習済みモデルにファインチューニングを施すことや、過学習による汎化性能の低下の対策として、NNモデルにdropout layerを追加することが挙げられた。\par
 
 \subsection{実験2}
+実験2で用いた訓練用データセットの蛇の種類は、主に日本の蛇が中心だったため、indian datasetsの特徴量と合致していなかったと考えられる。元々、毒蛇共通の特徴があると仮定して実験を行なっていたが、どちらにせよ外国の蛇のデータは必要だと考えた。\par
+また、今回用いたデータセットに世界各国の毒蛇と無毒蛇の画像をそれぞれ追加することが必要だと考えた。膨大な種類の画像が必要になるため、今後の開発ではデータセットを作成する人員を増やして実験を進めていくべきだと考えられる。
 
+\subsection{実験3}
+画像を追加したデータセットの内容は一種ごとで10倍の差があっため、外国の蛇に対する特徴量は導きにくいと予想した。一方、精査結果のスコアが向上していたため、さらにデータセットを充実させれば目標に達する可能性があると考えられる。\par
+そこで、データセットに追加する分の画像を蛇一種あたり30枚ほどに増加させることで、正解率向上を目指せるのではないかと考えた。なお、追加する蛇の種類はすでに確定しており、実験2での画像追加より作業量は多くならないと見込まれるため、データセットを作成する人員を減らして進める。
+
+\subsection{実験4}
 
 \clearpage
 
@@ -414,5 +428,6 @@ _________________________________________________________________
 \begin{thebibliography}{n}
 	\bibitem{theme1}画像認識でよく聞く「CNN」とは？仕組みや特徴を1から解説, \url{https://aismiley.co.jp/ai_news/cnn/}, 2023/06/14.
 	\bibitem{theme2}画像認識の分野では欠かせない「CNN（畳み込みネットワーク）とは」, \url{https://www.paloaltoinsight.com/2022/12/09/cnn/},2023/06/14.
+	\bibitem{theme3}ImageClassification, \url{https://github.com/nicknochnack/ImageClassification}, 2023/06/08
 \end{thebibliography}
 \end{document}
