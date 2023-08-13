@@ -54,13 +54,15 @@ OpenCVで画像の前処理を行い、予測を適切に行えるようにし�
 
 \subsection{データ分割}
 ホールドアウト法を用いて、以下のような割合でデータを分割した。\par
-Train :70\%
-Val:20\%
-Test:10\%
+\begin{itemize}
+\item Train :70\%
+\item Val:20\%
+\item Test:10\%
+\end{itemize}
 
 \section{実験1}
 \subsection{実験内容}
-Kaggle で取得したデータセット(classification snake species\cite{theme3})を利用して実験を行った。データセットは毒蛇1140枚、毒なし蛇630枚の画像で構成されている。また、データをTrain 70\%, Val 20\%, Test 10\%で分割し用意した。本実験では画像から毒あり毒無し蛇の特徴量を抽出してもらった上で予測を行うため、畳み込みやプーリングを行うことができるCNNをアルゴリズムとして採用した。そのため、学習モデルとして人がhappyかsadを識別する学習モデル(ImageClassification\cite{theme4})を採用し、sigmoid関数を用いて毒あり蛇である（出力1）、毒蛇でない（出力0）の2値を出力するようにファインチューニングを行った。\par
+Kaggle で取得したデータセット(classification snake species\cite{theme3})を利用して実験を行った。データセットは毒蛇14,500枚、毒なし蛇26,750枚の画像で構成されている。また、データをTrain 70\%, Val 20\%, Test 10\%で分割し用意した。本実験では画像から毒あり毒無し蛇の特徴量を抽出してもらった上で予測を行うため、畳み込みやプーリングを行うことができるCNNをアルゴリズムとして採用した。そのため、学習モデルとして人がhappyかsadを識別する学習モデル(ImageClassification\cite{theme4})を採用し、sigmoid関数を用いて毒あり蛇である（出力1）、毒蛇でない（出力0）の2値を出力するようにファインチューニングを行った。\par
 
 \subsection{パラメータ調整}
 実験1ではパラメータを以下のように設定した。\par
@@ -152,20 +154,24 @@ _________________________________________________________________
 
 \section{実験2}
 \subsection{実験内容}
-学習済みモデルの作成および学習モデルの評価を行う。実験1の考察を踏まえ、新たなデータセットdataset1を作成・使用して学習する。dataset1は、無作為に選んだ毒蛇・毒なし蛇の画像（ハブやアカマタ等16種）を毒蛇・毒なし蛇それぞれ300枚、合計約600枚程度集めたデータセットである。画像収集にはGoogle Chromeの拡張機能である「Image downloader - Imageye」を利用した。また、上述のデータセットとは異なる、インドの毒蛇と毒なし蛇が含まれている信頼性の高いデータセットであるindian datasets\cite{theme5}を用いて再テストを行う。indian datasetsは毒蛇1140枚、毒なし蛇630枚の画像で構成されている。\par
+学習済みモデルの作成および学習モデルの評価を行う。実験1の考察を踏まえ、新たなデータセットdataset1を作成・使用して学習する。dataset1は、無作為に選んだ毒蛇・毒なし蛇の画像（ハブやアカマタ等16種）を毒蛇・毒なし蛇それぞれ300枚、合計約600枚程度集めたデータセットである。画像収集にはGoogle Chromeの拡張機能であるImage downloader - Imageye\cite{theme6}を利用した。また、上述のデータセットとは異なる、インドの毒蛇と毒なし蛇が含まれている信頼性の高いデータセットであるindian datasetsを用いて再テストを行う。indian datasetsは毒蛇1140枚、毒なし蛇630枚の画像で構成されている。\par
 モデルに関しては、実験1と同様にCNNを用いるが、すでに事前学習されているVGG16の全結合層以外のレイヤーにオリジナルでlayerを追加し、追加分レイヤーだけをファインチューニングして利用する。オリジナルで追加したlayerの特徴としてはロバストネスのためのDropout layerを用いている。\par
 
 \subsection{パラメータ調整}
 実験2ではパラメータを以下のように設定した。\par
 \begin{lstlisting}[caption=パラメータ(実験2),label=fuga]
+#save as txt file to view?
+#create sequential neural network model. add layers with model.add.
 model = Sequential()
 
 model.add(base_model)
 
+#additional convolution layers
 model.add(Conv2D(64, kernel_size=3, padding="same", activation="relu"))
 model.add(MaxPooling2D())
 model.add(Dropout(0.25))
 
+#fully connected layers
 model.add(Flatten())
 model.add(Dense(256, activation='relu'))
 model.add(Dropout(0.5))
@@ -173,6 +179,7 @@ model.add(Dense(128, activation="relu"))
 model.add(Dense(64, activation="relu")) 
 model.add(Dropout(0.5))
 
+#use the softmax function
 model.add(Dense(1, activation='sigmoid'))
 
 \end{lstlisting}\par
@@ -241,6 +248,8 @@ _________________________________________________________________
   \end{tabular}
 \end{table}
 
+\clearpage
+
 \subsubsection{indian datasetsによる精査}
 \begin{table}[htb]
 \centering
@@ -257,7 +266,9 @@ _________________________________________________________________
 
 \section{実験3}
 \subsection{実験内容}
-実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。実験2の考察を踏まえ、新たなデータセットdataset2を用いて学習する。dataset2は、実験2で訓練用データセットとして用いたdataset1に世界各地の毒蛇、毒なし蛇の画像を追加したデータセットである。具体的な作成方法としては、まず地域を北アメリカ州、南アメリカ州、アフリカ州、ヨーロッパ州、アジア州（さらに東南アジア、南アジア、中央アジア、西アジアに分ける）、オセアニア州に分け、各地域ごとに毒蛇、毒なし蛇を各$2\sim5$種類選定する。その中から地域ごとの蛇の画像が合計5枚になるようにデータセットに追加した。最終的に毒蛇・毒なし蛇それぞれ約340枚、合計約680枚のデータセットとなった。画像収集にはGoogle Chromeの拡張機能である「Image downloader - Imageye」を利用した。その後、indian datasetsを用いて精査を行う。\par
+実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。実験2の考察を踏まえ、新たなデータセットdataset2を用いて学習する。dataset2は、実験2で訓練用データセットとして用いたdataset1に世界各地の毒蛇、毒なし蛇の画像を追加したデータセットである。具体的な作成方法としては、まず地域を北アメリカ州、南アメリカ州、アフリカ州、ヨーロッパ州、アジア州（さらに東南アジア、南アジア、中央アジア、西アジアに分ける）、オセアニア州に分け、各地域ごとに毒蛇、毒なし蛇を各$2\sim5$種類選定する。その中から地域ごとの蛇の画像が合計5枚になるようにデータセットに追加した。最終的に毒蛇・毒なし蛇それぞれ約340枚、合計約680枚のデータセットとなった。画像収集には実験2同様、Image downloader - Imageyeを利用した。その後、indian datasetsを用いて精査を行う。\par
+
+\clearpage
 
 \subsection{実験結果}
 \begin{figure}[htbp]
@@ -299,7 +310,7 @@ _________________________________________________________________
 
 \section{実験4}
 \subsection{実験内容}
-実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。実験3の考察を踏まえ、新たなデータセットdataset3を用いて学習した。dataset3は、実験3で訓練用データセットとして用いたdataset2に各地域ごとの蛇の画像をさらに追加したデータセット。画像収集にはGoogle Chromeの拡張機能である「Image downloader - Imageye」を利用した。その後、indian datasetsを用いて精査を行う。なお、dataset3で追加した枚数の内訳は以下の通りである。\par
+実験2で作成した学習済みモデルを利用し、同様に学習モデルの評価を行う。実験3の考察を踏まえ、新たなデータセットdataset3を用いて学習した。dataset3は、実験3で訓練用データセットとして用いたdataset2に各地域ごとの蛇の画像をさらに追加したデータセット。画像収集には実験2,3同様、Image downloader - Imageyeを利用した。その後、indian datasetsを用いて精査を行う。なお、dataset3で追加した枚数の内訳は以下の通りである。\par
 
 \begin{table}[htb]
 \centering
@@ -355,7 +366,7 @@ _________________________________________________________________
 
 \subsection{考察}
 うまくいかなかった原因として、Train,Val,Testデータにそれぞれデータの偏りがあったことが挙げられる。また、データセットの画像が多すぎたことから、ノイズを完全に取り除けていなかった可能性があった。\par
-改善点として、交差検証を行うことが挙げられる。本実験は、ホールドアウト法で行なっていたため、データの偏りを考慮していなかった。また、説明変数を減らして汎化性能を高めるために、正則化の実装が挙げられる\cite{theme6}。
+改善点として、交差検証を行うことが挙げられる。本実験は、ホールドアウト法で行なっていたため、データの偏りを考慮していなかった。また、説明変数を減らして汎化性能を高めるために、正則化の実装が挙げられる\cite{theme7}。
 
 \clearpage
 
@@ -373,11 +384,12 @@ _________________________________________________________________
 今回の実験では、画像に写っている蛇の毒の有無を予測し、正しいか確認することを目的として、正解率80\%を目指して実施した。残念ながら、最終的な正解率は約60\%と目標を達成することができなかった。しかし、実験の中で気づいた点として、「データセットの充実性」についての重要性が挙げられる。データセットをテスト用のデータに対応させるために工夫するたび、正解率が上がっていったことから、機械学習におけるデータセット内容の重要性について再認識することができた。また、実験を進めていくにつれ、機械学習の手法や開発に対する取り組み方についての理解を深めることができた。他にもGitHubを利用したバージョン管理や学科サーバーを利用した実験なども行うことができ、チーム開発として良い点だったと考える。
 
 \begin{thebibliography}{n}
-	\bibitem{theme1}画像認識でよく聞く「CNN」とは？仕組みや特徴を1から解説, \url{https://aismiley.co.jp/ai_news/cnn/}, 2023/06/14.
-	\bibitem{theme2}画像認識の分野では欠かせない「CNN（畳み込みネットワーク）とは」, \url{https://www.paloaltoinsight.com/2022/12/09/cnn/},2023/06/14.
-	\bibitem{theme3}classification snake species, \url{https://www.kaggle.com/datasets/nikhilshingadiya/sample-0}, 2023/06/08
-	\bibitem{theme4}ImageClassification, \url{https://github.com/nicknochnack/ImageClassification}, 2023/06/08
-	\bibitem{theme5}Indian-Snakes-Dataset, \url{https://github.com/arjun921/Indian-Snakes-Dataset}, 2023/06/08
-	\bibitem{theme6}NRI 野村総合研究所 用語解説 過学習\url{https://www.nri.com/jp/knowledge/glossary/lst/ka/overfitting},2023/08/03
+	\bibitem{theme1}画像認識でよく聞く「CNN」とは？仕組みや特徴を1から解説, \url{https://aismiley.co.jp/ai_news/cnn},2023/06/14.
+	\bibitem{theme2}画像認識の分野では欠かせない「CNN（畳み込みネットワーク）とは」, \url{https://www.paloaltoinsight.com/2022/12/09/cnn},2023/06/14.
+	\bibitem{theme3}classification snake species, \url{https://www.kaggle.com/datasets/nikhilshingadiya/sample-0},2023/06/08
+	\bibitem{theme4}ImageClassification,\url{https://github.com/nicknochnack/ImageClassification},2023/06/08
+	\bibitem{theme5}Indian-Snakes-Dataset, \url{https://github.com/arjun921/Indian-Snakes-Dataset},2023/06/08
+	\bibitem{theme6}Image downloader - Imageye, \url{https://chrome.google.com/webstore/detail/image-downloader-imageye/agionbommeaifngbhincahgmoflcikhm},2023/06/15
+	\bibitem{theme7}NRI 野村総合研究所 用語解説 過学習\url{https://www.nri.com/jp/knowledge/glossary/lst/ka/overfitting},2023/08/03
 \end{thebibliography}
 \end{document}
