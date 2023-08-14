@@ -2,32 +2,33 @@
 \contentsline {section}{\numberline {2}実験目的・目標}{2}{}%
 \contentsline {section}{\numberline {3}使用するデータの前処理}{2}{}%
 \contentsline {subsection}{\numberline {3.1}データセットのクレンジング}{2}{}%
-\contentsline {subsection}{\numberline {3.2}データの正規化}{2}{}%
+\contentsline {subsection}{\numberline {3.2}データの正規化}{3}{}%
 \contentsline {subsection}{\numberline {3.3}データ分割}{3}{}%
 \contentsline {section}{\numberline {4}実験1}{3}{}%
 \contentsline {subsection}{\numberline {4.1}実験内容}{3}{}%
 \contentsline {subsection}{\numberline {4.2}パラメータ調整}{3}{}%
-\contentsline {subsection}{\numberline {4.3}実験結果}{4}{}%
+\contentsline {subsection}{\numberline {4.3}実験結果}{5}{}%
 \contentsline {subsubsection}{\numberline {4.3.1}学習モデルの評価}{5}{}%
 \contentsline {subsection}{\numberline {4.4}考察}{5}{}%
-\contentsline {section}{\numberline {5}実験2}{5}{}%
-\contentsline {subsection}{\numberline {5.1}実験内容}{5}{}%
+\contentsline {section}{\numberline {5}実験2}{6}{}%
+\contentsline {subsection}{\numberline {5.1}実験内容}{6}{}%
 \contentsline {subsection}{\numberline {5.2}パラメータ調整}{6}{}%
-\contentsline {subsection}{\numberline {5.3}実験結果}{7}{}%
-\contentsline {subsubsection}{\numberline {5.3.1}学習モデルの評価}{7}{}%
+\contentsline {subsection}{\numberline {5.3}実験結果}{8}{}%
+\contentsline {subsubsection}{\numberline {5.3.1}学習モデルの評価}{8}{}%
 \contentsline {subsubsection}{\numberline {5.3.2}indian datasetsによる精査}{8}{}%
 \contentsline {subsection}{\numberline {5.4}考察}{8}{}%
-\contentsline {section}{\numberline {6}実験3}{8}{}%
-\contentsline {subsection}{\numberline {6.1}実験内容}{8}{}%
+\contentsline {section}{\numberline {6}実験3}{9}{}%
+\contentsline {subsection}{\numberline {6.1}実験内容}{9}{}%
 \contentsline {subsection}{\numberline {6.2}実験結果}{9}{}%
 \contentsline {subsubsection}{\numberline {6.2.1}学習モデルの評価}{9}{}%
-\contentsline {subsubsection}{\numberline {6.2.2}indian datasetsによる精査}{9}{}%
-\contentsline {subsection}{\numberline {6.3}考察}{9}{}%
+\contentsline {subsubsection}{\numberline {6.2.2}indian datasetsによる精査}{10}{}%
+\contentsline {subsection}{\numberline {6.3}考察}{10}{}%
 \contentsline {section}{\numberline {7}実験4}{10}{}%
 \contentsline {subsection}{\numberline {7.1}実験内容}{10}{}%
-\contentsline {subsection}{\numberline {7.2}実験結果}{10}{}%
+\contentsline {subsection}{\numberline {7.2}実験結果}{11}{}%
 \contentsline {subsubsection}{\numberline {7.2.1}学習モデルの評価}{11}{}%
-\contentsline {subsubsection}{\numberline {7.2.2}indian datasetsによる精査}{11}{}%
-\contentsline {subsection}{\numberline {7.3}考察}{11}{}%
-\contentsline {section}{\numberline {8}意図していた実験計画との違い}{12}{}%
-\contentsline {section}{\numberline {9}まとめ}{12}{}%
+\contentsline {subsubsection}{\numberline {7.2.2}indian datasetsによる精査}{12}{}%
+\contentsline {subsection}{\numberline {7.3}考察}{12}{}%
+\contentsline {section}{\numberline {8}全体の実験結果}{12}{}%
+\contentsline {section}{\numberline {9}意図していた実験計画との違い}{12}{}%
+\contentsline {section}{\numberline {10}まとめ}{13}{}%
